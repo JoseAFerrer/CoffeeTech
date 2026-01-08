@@ -32,11 +32,8 @@ public static class DatabaseInitializer
         var random = new Random();
         foreach (var collection in collections)
         {
-            var bookshopAHasCollection = random.NextBoolean();
-            var bookshopBHasCollection = random.NextBoolean();
-
-            if (bookshopAHasCollection) bookshopA.AddPartialCollectionToBookshop(collection, random);
-            if (bookshopBHasCollection) bookshopB.AddPartialCollectionToBookshop(collection, random);
+            if (random.NextBoolean()) bookshopA.AddPartialCollectionToBookshop(collection, random);
+            if (random.NextBoolean()) bookshopB.AddPartialCollectionToBookshop(collection, random);
         }
         
         Database.SaveBookshop(Constants.BookshopA, bookshopA);

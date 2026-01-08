@@ -9,6 +9,11 @@ public static class RandomExtensions
     
     public static int NextOneToTen(this Random random)
     {
+        return random.Next(1, 11);
+    }
+    
+    public static int NextZeroToTen(this Random random)
+    {
         return random.Next(0, 11);
     }
     
