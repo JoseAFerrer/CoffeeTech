@@ -9,6 +9,7 @@
 5. Exchange complete collections
 6. Comparing who has more of different authors
 7. Steal all books from authors we don't have
+8. Book exchange between bookshops
 
 
 

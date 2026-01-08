@@ -1,23 +1,23 @@
 namespace ListsJoyAndPain.Models;
 
-public class Collection
+public class Saga
 {
-    public Collection()
+    public Saga()
     {
         
     }
-    public Collection(List<Book> books, List<string> authorIds)
+    public Saga(List<Book> books, List<string> authorIds)
     {
         Books = books;
         CompleteSize = books.Count;
         AuthorIds = authorIds;
     }
     
-    public Collection(Collection parentCollection, int takeFirstBooks)
+    public Saga(Saga parentSaga, int takeFirstBooks)
     {
-        Books = parentCollection.GetFirstBooks(takeFirstBooks);
-        CompleteSize = parentCollection.CompleteSize;
-        AuthorIds = parentCollection.AuthorIds;
+        Books = parentSaga.GetFirstBooks(takeFirstBooks);
+        CompleteSize = parentSaga.CompleteSize;
+        AuthorIds = parentSaga.AuthorIds;
     }
 
     public List<string> AuthorIds { get; set; } = [];

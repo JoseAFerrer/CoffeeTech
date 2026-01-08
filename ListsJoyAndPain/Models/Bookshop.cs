@@ -7,5 +7,5 @@ public class Bookshop
         
     }
 
-    public List<Collection> Collections { get; set; } = [];
+    public List<Saga> Sagas { get; set; } = [];
 }

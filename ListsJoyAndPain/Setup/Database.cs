@@ -17,10 +17,10 @@ public static class Database
         File.WriteAllText(Constants.BookPath, jsonString);
     }
         
-        public static void SaveCollections(List<Collection> collections)
+        public static void SaveSagas(List<Saga> sagas)
         {
-            var jsonString = JsonSerializer.Serialize(collections);
-            File.WriteAllText(Constants.CollectionPath, jsonString);
+            var jsonString = JsonSerializer.Serialize(sagas);
+            File.WriteAllText(Constants.SagaPath, jsonString);
         }
         
         public static void SaveBookshop(string path, Models.Bookshop bookshop)
@@ -43,11 +43,11 @@ public static class Database
             return books ?? [];
         }
         
-        public static List<Collection> GetCollections()
+        public static List<Saga> GetSagas()
         {
-            var collectionsAsJson = File.ReadAllText(Constants.CollectionPath);
-            var collections = JsonSerializer.Deserialize<List<Collection>>(collectionsAsJson);
-            return collections ?? [];
+            var sagasAsJson = File.ReadAllText(Constants.SagaPath);
+            var sagas = JsonSerializer.Deserialize<List<Saga>>(sagasAsJson);
+            return sagas ?? [];
         }
 
         public static Models.Bookshop GetBookshop(string path)

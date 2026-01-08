@@ -37,34 +37,34 @@ public static class DatabaseInitializer
     }
 
     /// <summary>
-    /// Generates all books and collections from scratch
+    /// Generates all books and sagas from scratch
     /// </summary>
     public static void ResetBookDatabase()
     {
         if (File.Exists(Constants.BookPath)) File.Delete(Constants.BookPath);
-        if (File.Exists(Constants.CollectionPath)) File.Delete(Constants.CollectionPath);
+        if (File.Exists(Constants.SagaPath)) File.Delete(Constants.SagaPath);
         
         GenerateAllBooks();
-        GenerateBaseCollections();
+        GenerateBaseSagas();
     }
 
     /// <summary>
-    /// Generates bookshops from scratch, using collections
+    /// Generates bookshops from scratch, using sagas
     /// </summary>
     public static void ResetBookshops()
     {
         if (File.Exists(Constants.BookshopA)) File.Delete(Constants.BookshopA);
         if (File.Exists(Constants.BookshopB)) File.Delete(Constants.BookshopB);
-        GenerateBookshopsBasedOnCollections();
+        GenerateBookshopsBasedOnSagas();
     }
 
-    private static void GenerateBookshopsBasedOnCollections()
+    private static void GenerateBookshopsBasedOnSagas()
     {
         var bookshopA = new Models.Bookshop();
         var bookshopB = new Models.Bookshop();
-        var collections = Database.GetCollections();
+        var sagas = Database.GetSagas();
         var random = new Random();
-        foreach (var collection in collections)
+        foreach (var collection in sagas)
         {
             if (random.NextBoolean()) bookshopA.AddPartialCollectionToBookshop(collection, random);
             if (random.NextBoolean()) bookshopB.AddPartialCollectionToBookshop(collection, random);
@@ -74,11 +74,11 @@ public static class DatabaseInitializer
         Database.SaveBookshop(Constants.BookshopB, bookshopB);
     }
 
-    private static void AddPartialCollectionToBookshop(this Models.Bookshop bookshop, Collection collection, Random random)
+    private static void AddPartialCollectionToBookshop(this Models.Bookshop bookshop, Saga saga, Random random)
     {
-        var partialCollectionIndex = Math.Min(collection.Size, random.NextOneToTen());
-        var collectionToAdd = new Collection(collection, partialCollectionIndex);
-        bookshop.Collections.Add(collectionToAdd);
+        var partialCollectionIndex = Math.Min(saga.Size, random.NextOneToTen());
+        var collectionToAdd = new Saga(saga, partialCollectionIndex);
+        bookshop.Sagas.Add(collectionToAdd);
     }
 
     private static void GenerateAllBooks()
@@ -91,27 +91,29 @@ public static class DatabaseInitializer
         Database.SaveAllBooks(books);
     }
     
-    private static void GenerateBaseCollections()
+    private static void GenerateBaseSagas()
     {
         var books = Database.GetBooks();
         var authors = Database.GetAuthors();
         
         var random = new Random();
-        var baseCollections = new List<Collection>();
+        var baseSagas = new List<Saga>();
         var safetyCounter = 0;
         while (books.Count > 0 && safetyCounter < 1000)
         {
-            var collectionAmount = Math.Min(random.NextOneToTen(), books.Count);
-            var booksForCollection = books.Take(collectionAmount).ToList();
+            var bookAmount = Math.Min(random.NextOneToTen(), books.Count);
+            var booksForSaga = books.Take(bookAmount).ToList();
 
             var authorIndex = random.Next(0, authors.Count);
-            var authorIdForCollection = authors.ToArray()[authorIndex].Id;
+            var authorIdForSaga = authors.ToArray()[authorIndex].Id;
+
+            var sagaName = BookService.GetSagaName();
             
-            baseCollections.Add(new Collection(booksForCollection, [authorIdForCollection]));
-            books.RemoveRange(0, collectionAmount);
+            baseSagas.Add(new Saga(sagaName, booksForSaga, [authorIdForSaga]));
+            books.RemoveRange(0, bookAmount);
             safetyCounter++;
         }
         
-        Database.SaveCollections(baseCollections);
+        Database.SaveSagas(baseSagas);
     }
 }

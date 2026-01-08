@@ -10,8 +10,8 @@ public static class UseCase01
         var bookshopA = Database.GetBookshop(Constants.BookshopA);
         var bookshopB = Database.GetBookshop(Constants.BookshopB);
 
-        var bookCountA = bookshopA.Collections.Sum(x => x.Books.Count);
-        var bookCountB = bookshopB.Collections.Sum(x => x.Books.Count);
+        var bookCountA = bookshopA.Sagas.Sum(x => x.Books.Count);
+        var bookCountB = bookshopB.Sagas.Sum(x => x.Books.Count);
 
         Console.WriteLine("Bookshop A has {0} books.", bookCountA);
         Console.WriteLine("Bookshop B has {0} books.", bookCountB);
