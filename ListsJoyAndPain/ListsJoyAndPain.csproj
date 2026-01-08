@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="CrypticWizard.RandomWordGenerator" Version="0.9.5" />
+      <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
     </ItemGroup>
 
 </Project>

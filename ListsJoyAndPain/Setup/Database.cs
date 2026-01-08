@@ -5,11 +5,17 @@ namespace ListsJoyAndPain.Setup;
 
 public static class Database
 {
-        public static void SaveAllBooks(List<Book> books)
-        {
-            var jsonString = JsonSerializer.Serialize(books);
-            File.WriteAllText(Constants.BookPath, jsonString);
-        }
+    public static void SaveAuthors(List<Author> authors)
+    {
+        var jsonString = JsonSerializer.Serialize(authors);
+        File.WriteAllText(Constants.AuthorPath, jsonString);
+    }
+    
+    public static void SaveAllBooks(List<Book> books)
+    {
+        var jsonString = JsonSerializer.Serialize(books);
+        File.WriteAllText(Constants.BookPath, jsonString);
+    }
         
         public static void SaveCollections(List<Collection> collections)
         {

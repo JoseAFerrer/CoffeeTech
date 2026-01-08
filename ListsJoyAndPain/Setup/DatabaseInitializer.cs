@@ -1,10 +1,41 @@
 using ListsJoyAndPain.Models;
 using ListsJoyAndPain.Utilities;
+using RandomNameGeneratorLibrary;
 
 namespace ListsJoyAndPain.Setup;
 
 public static class DatabaseInitializer
 {
+    /// <summary>
+    /// Generates all authors from scratch
+    /// </summary>
+    public static void ResetAuthors()
+    {
+        if (File.Exists(Constants.AuthorPath)) File.Delete(Constants.AuthorPath);
+
+        GenerateAllAuthors();
+    }
+
+    private static void GenerateAllAuthors()
+    {
+        const int numberOfPlaces = 4;
+        var placeGenerator = new PlaceNameGenerator();
+        var places = placeGenerator.GenerateMultiplePlaceNames(numberOfPlaces).ToArray();
+        
+        var personGenerator = new PersonNameGenerator();
+        var random = new Random();
+        var authors = new List<Author>();
+        for (var i = 0; i < 40; i++)
+        {
+            var name = personGenerator.GenerateRandomFirstAndLastName();
+            var bornIn = random.Next(1, numberOfPlaces);
+            var publishedIn = random.Next(bornIn, numberOfPlaces);
+            authors.Add(new Author(name, places[bornIn], places[publishedIn]));
+        }
+        
+        Database.SaveAuthors(authors);
+    }
+
     /// <summary>
     /// Generates all books and collections from scratch
     /// </summary>
@@ -17,6 +48,9 @@ public static class DatabaseInitializer
         GenerateAllCollections();
     }
 
+    /// <summary>
+    /// Generates bookshops from scratch, using collections
+    /// </summary>
     public static void ResetBookshops()
     {
         if (File.Exists(Constants.BookshopA)) File.Delete(Constants.BookshopA);
