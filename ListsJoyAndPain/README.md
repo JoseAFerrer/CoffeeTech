@@ -8,7 +8,7 @@
 4. Steal books from one bookshop to another. Buy the rest from the provider
 5. Exchange complete collections
 6. Comparing who has more of different authors
-7. Stealing all books from authors we don't have
+7. Steal all books from authors we don't have
 
 
 

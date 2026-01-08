@@ -28,6 +28,13 @@ public static class Database
             var jsonString = JsonSerializer.Serialize(bookshop);
             File.WriteAllText(path, jsonString);
         }
+
+        public static List<Author> GetAuthors()
+        {
+            var authorsAsJson = File.ReadAllText(Constants.AuthorPath);
+            var authors = JsonSerializer.Deserialize<List<Author>>(authorsAsJson);
+            return authors ?? [];
+        }
         
         public static List<Book> GetBooks()
         {

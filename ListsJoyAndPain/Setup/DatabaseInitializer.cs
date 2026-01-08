@@ -45,7 +45,7 @@ public static class DatabaseInitializer
         if (File.Exists(Constants.CollectionPath)) File.Delete(Constants.CollectionPath);
         
         GenerateAllBooks();
-        GenerateAllCollections();
+        GenerateBaseCollections();
     }
 
     /// <summary>
@@ -77,8 +77,7 @@ public static class DatabaseInitializer
     private static void AddPartialCollectionToBookshop(this Models.Bookshop bookshop, Collection collection, Random random)
     {
         var partialCollectionIndex = Math.Min(collection.Size, random.NextOneToTen());
-        var booksToAddToPartialCollection = collection.GetFirstBooks(partialCollectionIndex);
-        var collectionToAdd = new Collection(booksToAddToPartialCollection, collection.Size);
+        var collectionToAdd = new Collection(collection, partialCollectionIndex);
         bookshop.Collections.Add(collectionToAdd);
     }
 
@@ -92,22 +91,27 @@ public static class DatabaseInitializer
         Database.SaveAllBooks(books);
     }
     
-    private static void GenerateAllCollections()
+    private static void GenerateBaseCollections()
     {
         var books = Database.GetBooks();
+        var authors = Database.GetAuthors();
         
         var random = new Random();
-        var collections = new List<Collection>();
+        var baseCollections = new List<Collection>();
         var safetyCounter = 0;
         while (books.Count > 0 && safetyCounter < 1000)
         {
             var collectionAmount = Math.Min(random.NextOneToTen(), books.Count);
             var booksForCollection = books.Take(collectionAmount).ToList();
-            collections.Add(new Collection(booksForCollection, booksForCollection.Count));
+
+            var authorIndex = random.Next(0, authors.Count);
+            var authorIdForCollection = authors.ToArray()[authorIndex].Id;
+            
+            baseCollections.Add(new Collection(booksForCollection, [authorIdForCollection]));
             books.RemoveRange(0, collectionAmount);
             safetyCounter++;
         }
         
-        Database.SaveCollections(collections);
+        Database.SaveCollections(baseCollections);
     }
 }

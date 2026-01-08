@@ -6,15 +6,24 @@ public class Collection
     {
         
     }
-    public Collection(List<Book> books, int completeSize)
+    public Collection(List<Book> books, List<string> authorIds)
     {
         Books = books;
-        CompleteSize = completeSize;
+        CompleteSize = books.Count;
+        AuthorIds = authorIds;
     }
-    public List<string>? AuthorIds { get; set; }
+    
+    public Collection(Collection parentCollection, int takeFirstBooks)
+    {
+        Books = parentCollection.GetFirstBooks(takeFirstBooks);
+        CompleteSize = parentCollection.CompleteSize;
+        AuthorIds = parentCollection.AuthorIds;
+    }
+
+    public List<string> AuthorIds { get; set; } = [];
     public List<Book> Books { get; set; }
-    public int Size => Books.Count;
     public int CompleteSize { get; set; }
+    public int Size => Books.Count;
     public List<Book> GetFirstBooks(int x) => Books.Take(x).ToList();
     public bool IsComplete => Size == CompleteSize;
 }
