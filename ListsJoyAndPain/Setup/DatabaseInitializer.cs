@@ -1,4 +1,5 @@
 using ListsJoyAndPain.Models;
+using ListsJoyAndPain.Utilities;
 
 namespace ListsJoyAndPain.Setup;
 
@@ -31,15 +32,24 @@ public static class DatabaseInitializer
         var random = new Random();
         foreach (var collection in collections)
         {
-            var bookshopAHasCollection = random.Next(0, 100);
-            var bookshopBHasCollection = random.Next(0, 100);
+            var bookshopAHasCollection = random.NextBoolean();
+            var bookshopBHasCollection = random.NextBoolean();
 
-            if (bookshopAHasCollection is > 50) bookshopA.Collections.Add(collection);
-            if (bookshopBHasCollection is > 50) bookshopB.Collections.Add(collection);
+            if (bookshopAHasCollection) bookshopA.AddPartialCollectionToBookshop(collection, random);
+            if (bookshopBHasCollection) bookshopB.AddPartialCollectionToBookshop(collection, random);
         }
         
         Database.SaveBookshop(Constants.BookshopA, bookshopA);
         Database.SaveBookshop(Constants.BookshopB, bookshopB);
+    }
+
+    private static void AddPartialCollectionToBookshop(this Models.Bookshop bookshop, Collection collection, Random random)
+    {
+        var partialCollectionIndex = Math.Min(collection.Size, random.NextOneToTen());
+        var isComplete = partialCollectionIndex == collection.Size;
+
+        var incompleteCollection = new Collection(collection.GetFirstBooks(partialCollectionIndex), isComplete);
+        bookshop.Collections.Add(incompleteCollection);
     }
 
     private static void GenerateAllBooks()
@@ -61,9 +71,9 @@ public static class DatabaseInitializer
         var safetyCounter = 0;
         while (books.Count > 0 && safetyCounter < 1000)
         {
-            var collectionAmount = Math.Min(random.Next(1, 10), books.Count);
+            var collectionAmount = Math.Min(random.NextOneToTen(), books.Count);
             var booksForCollection = books.Take(collectionAmount).ToList();
-            collections.Add(new Collection(booksForCollection));
+            collections.Add(new Collection(booksForCollection, true));
             books.RemoveRange(0, collectionAmount);
             safetyCounter++;
         }

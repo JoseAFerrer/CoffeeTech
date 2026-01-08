@@ -13,6 +13,8 @@ public static class UseCase01
         var bookCountA = bookshopA.Collections.Sum(x => x.Books.Count);
         var bookCountB = bookshopB.Collections.Sum(x => x.Books.Count);
 
+        Console.WriteLine("Bookshop A has {0} books.", bookCountA);
+        Console.WriteLine("Bookshop B has {0} books.", bookCountB);
         Console.WriteLine(bookCountA > bookCountB ? "Bookshop A has more books!" : "Bookshop B has more books!");
     }
 }
