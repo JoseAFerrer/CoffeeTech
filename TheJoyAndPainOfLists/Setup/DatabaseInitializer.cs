@@ -9,16 +9,17 @@ public static class DatabaseInitializer
     /// </summary>
     public static void ResetBookDatabase()
     {
-        File.Delete(Constants.BookPath);
-        File.Delete(Constants.CollectionPath);
+        if (File.Exists(Constants.BookPath)) File.Delete(Constants.BookPath);
+        if (File.Exists(Constants.CollectionPath)) File.Delete(Constants.CollectionPath);
+        
         GenerateAllBooks();
         GenerateAllCollections();
     }
 
     public static void ResetBookshops()
     {
-        File.Delete(Constants.BookshopA);
-        File.Delete(Constants.BookshopB);
+        if (File.Exists(Constants.BookshopA)) File.Delete(Constants.BookshopA);
+        if (File.Exists(Constants.BookshopB)) File.Delete(Constants.BookshopB);
         GenerateBookshopsBasedOnCollections();
     }
 
