@@ -6,13 +6,6 @@ public class Book
     {
         
     }
-    public Book(string idAndTitle)
-    {
-        var id = idAndTitle.Split('/')[0];
-        var title = idAndTitle.Split('/')[1];
-        Id = id;
-        Title = title;
-    }
     
     public Book(string id, string title)
     {

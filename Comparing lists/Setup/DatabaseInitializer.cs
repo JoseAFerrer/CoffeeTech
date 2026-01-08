@@ -1,25 +1,59 @@
 using Comparing_lists.Models;
-using CrypticWizard.RandomWordGenerator;
 
 namespace Comparing_lists.Setup;
 
 public static class DatabaseInitializer
 {
-    public static void ResetBooks()
+    /// <summary>
+    /// Generates all books and collections from scratch
+    /// </summary>
+    public static void ResetBookDatabase()
     {
         File.Delete(Constants.BookPath);
         File.Delete(Constants.CollectionPath);
+        GenerateAllBooks();
+        GenerateAllCollections();
+    }
+
+    public static void ResetBookshops()
+    {
+        File.Delete(Constants.BookshopA);
+        File.Delete(Constants.BookshopB);
+        GenerateBookshopsBasedOnCollections();
+    }
+
+    private static void GenerateBookshopsBasedOnCollections()
+    {
+        var bookshopA = new Bookshop();
+        var bookshopB = new Bookshop();
+        var collections = Database.GetCollections();
+        var random = new Random();
+        foreach (var collection in collections)
+        {
+            var bookshopAHasCollection = random.Next(0, 100);
+            var bookshopBHasCollection = random.Next(0, 100);
+
+            if (bookshopAHasCollection is > 50) bookshopA.Collections.Add(collection);
+            if (bookshopBHasCollection is > 50) bookshopB.Collections.Add(collection);
+        }
+        
+        Database.SaveBookshop(Constants.BookshopA, bookshopA);
+        Database.SaveBookshop(Constants.BookshopB, bookshopB);
+    }
+
+    private static void GenerateAllBooks()
+    {
         const int numberOfBooks = 1000;
         var books = BookService.GetBookTitles(numberOfBooks)
-                .Select(x => new Book(Guid.NewGuid().ToString().Remove(13),x))
-                .ToList();
+            .Select(x => new Book(Guid.NewGuid().ToString().Remove(13),x))
+            .ToList();
         
         Database.SaveAllBooks(books);
     }
-
-    public static void GenerateAllCollections()
+    
+    private static void GenerateAllCollections()
     {
-        var books = Database.GetBooksFromDb();
+        var books = Database.GetBooks();
         
         var random = new Random();
         var collections = new List<Collection>();
