@@ -46,10 +46,9 @@ public static class DatabaseInitializer
     private static void AddPartialCollectionToBookshop(this Models.Bookshop bookshop, Collection collection, Random random)
     {
         var partialCollectionIndex = Math.Min(collection.Size, random.NextOneToTen());
-        var isComplete = partialCollectionIndex == collection.Size;
-
-        var incompleteCollection = new Collection(collection.GetFirstBooks(partialCollectionIndex), isComplete);
-        bookshop.Collections.Add(incompleteCollection);
+        var booksToAddToPartialCollection = collection.GetFirstBooks(partialCollectionIndex);
+        var collectionToAdd = new Collection(booksToAddToPartialCollection, collection.Size);
+        bookshop.Collections.Add(collectionToAdd);
     }
 
     private static void GenerateAllBooks()
@@ -73,7 +72,7 @@ public static class DatabaseInitializer
         {
             var collectionAmount = Math.Min(random.NextOneToTen(), books.Count);
             var booksForCollection = books.Take(collectionAmount).ToList();
-            collections.Add(new Collection(booksForCollection, true));
+            collections.Add(new Collection(booksForCollection, booksForCollection.Count));
             books.RemoveRange(0, collectionAmount);
             safetyCounter++;
         }
