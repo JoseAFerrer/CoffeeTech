@@ -3,4 +3,5 @@
 
 using Comparing_lists.Setup;
 
-DatabaseInitializer.GenerateAllBooks();
+DatabaseInitializer.ResetBooks();
+DatabaseInitializer.GenerateAllCollections();

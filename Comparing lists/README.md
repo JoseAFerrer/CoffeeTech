@@ -8,6 +8,8 @@
 3. Variation: From the common collections, which has more of them with more books (assuming we never know if the collection is complete)?
 4. Steal books from one bookshop to another
 5. Exchange complete collections
+6. Comparing who has more of different authors
+7. Stealing all books from authors we don't have
 
 
 
