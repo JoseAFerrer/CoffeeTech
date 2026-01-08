@@ -1,7 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ListsJoyAndPain.Setup;
+using ListsJoyAndPain.Use_cases;
 
+// DatabaseInitializer.ResetBookDatabase();
+// DatabaseInitializer.ResetBookshops();
 
-using ListsJoyAndPain.Setup;
-
-DatabaseInitializer.ResetBookDatabase();
-DatabaseInitializer.ResetBookshops();
+UseCase01.WhoHasMoreBooks();
