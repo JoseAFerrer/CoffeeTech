@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comparing lists", "Comparing lists\Comparing lists.csproj", "{55F09A09-83DE-47CE-8106-BFA1115B6EF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheJoyAndPainOfLists", "TheJoyAndPainOfLists\TheJoyAndPainOfLists.csproj", "{55F09A09-83DE-47CE-8106-BFA1115B6EF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
