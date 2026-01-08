@@ -25,8 +25,8 @@ public static class DatabaseInitializer
 
     private static void GenerateBookshopsBasedOnCollections()
     {
-        var bookshopA = new Bookshop();
-        var bookshopB = new Bookshop();
+        var bookshopA = new Models.Bookshop();
+        var bookshopB = new Models.Bookshop();
         var collections = Database.GetCollections();
         var random = new Random();
         foreach (var collection in collections)

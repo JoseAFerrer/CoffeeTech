@@ -17,7 +17,7 @@ public static class Database
             File.WriteAllText(Constants.CollectionPath, jsonString);
         }
         
-        public static void SaveBookshop(string path, Bookshop bookshop)
+        public static void SaveBookshop(string path, Models.Bookshop bookshop)
         {
             var jsonString = JsonSerializer.Serialize(bookshop);
             File.WriteAllText(path, jsonString);
@@ -37,10 +37,10 @@ public static class Database
             return collections ?? [];
         }
 
-        public static Bookshop GetBookshop(string path)
+        public static Models.Bookshop GetBookshop(string path)
         {
             var bookshopAsJson = File.ReadAllText(path);
-            var bookshop = JsonSerializer.Deserialize<Bookshop>(bookshopAsJson);
-            return bookshop ?? new Bookshop();
+            var bookshop = JsonSerializer.Deserialize<Models.Bookshop>(bookshopAsJson);
+            return bookshop ?? new Models.Bookshop();
         }
 }
