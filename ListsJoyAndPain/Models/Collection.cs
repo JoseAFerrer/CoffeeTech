@@ -1,4 +1,4 @@
-namespace Comparing_lists.Models;
+namespace ListsJoyAndPain.Models;
 
 public class Collection
 {

@@ -1,4 +1,4 @@
-namespace Comparing_lists.Setup;
+namespace ListsJoyAndPain.Setup;
 
 public static class Constants
 {

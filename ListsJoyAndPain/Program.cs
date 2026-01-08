@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-using Comparing_lists.Setup;
+using ListsJoyAndPain.Setup;
 
 DatabaseInitializer.ResetBookDatabase();
 DatabaseInitializer.ResetBookshops();

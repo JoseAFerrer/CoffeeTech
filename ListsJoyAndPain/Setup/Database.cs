@@ -1,7 +1,7 @@
 using System.Text.Json;
-using Comparing_lists.Models;
+using ListsJoyAndPain.Models;
 
-namespace Comparing_lists.Setup;
+namespace ListsJoyAndPain.Setup;
 
 public static class Database
 {
