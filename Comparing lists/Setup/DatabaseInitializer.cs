@@ -8,6 +8,7 @@ public static class DatabaseInitializer
     public static void ResetBooks()
     {
         File.Delete(Constants.BookPath);
+        File.Delete(Constants.CollectionPath);
         const int numberOfBooks = 1000;
         var books = BookService.GetBookTitles(numberOfBooks)
                 .Select(x => new Book(Guid.NewGuid().ToString().Remove(13),x))

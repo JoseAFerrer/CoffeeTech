@@ -8,26 +8,26 @@ public static class Database
         public static void SaveAllBooks(List<Book> books)
         {
             var jsonString = JsonSerializer.Serialize(books);
-            File.AppendAllLines(Constants.BookPath, [jsonString]);
+            File.WriteAllText(Constants.BookPath, jsonString);
         }
         
         public static void SaveCollections(List<Collection> collections)
         {
             var jsonString = JsonSerializer.Serialize(collections);
-            File.AppendAllLines(Constants.CollectionPath, [jsonString]);
+            File.WriteAllText(Constants.CollectionPath, jsonString);
         }
         
         public static List<Book> GetBooksFromDb()
         {
-            var booksAsJson = File.ReadAllLines(Constants.BookPath);
-            var books = JsonSerializer.Deserialize<List<Book>>(booksAsJson[0]);
+            var booksAsJson = File.ReadAllText(Constants.BookPath);
+            var books = JsonSerializer.Deserialize<List<Book>>(booksAsJson);
             return books ?? [];
         }
         
         public static List<Collection> GetCollectionsFromDb()
         {
-            var collectionsAsJson = File.ReadAllLines(Constants.CollectionPath);
-            var collections = JsonSerializer.Deserialize<List<Collection>>(collectionsAsJson[0]);
+            var collectionsAsJson = File.ReadAllText(Constants.CollectionPath);
+            var collections = JsonSerializer.Deserialize<List<Collection>>(collectionsAsJson);
             return collections ?? [];
         }
 }
