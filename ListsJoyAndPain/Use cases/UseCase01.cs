@@ -3,12 +3,11 @@ using ListsJoyAndPain.Setup;
 
 namespace ListsJoyAndPain.Use_cases;
 
-public static class UseCase01
+public static partial class UseCases
 {
-    public static void WhoHasMoreBooks()
+    public static void UC1_WhoHasMoreBooks()
     {
-        var bookshopA = Database.GetBookshop(Constants.BookshopA);
-        var bookshopB = Database.GetBookshop(Constants.BookshopB);
+        var (bookshopA, bookshopB) = BookshopService.GetBookshops();
 
         var bookCountA = bookshopA.Sagas.Sum(x => x.Books.Count);
         var bookCountB = bookshopB.Sagas.Sum(x => x.Books.Count);

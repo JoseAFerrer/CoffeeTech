@@ -5,4 +5,4 @@ DatabaseInitializer.ResetAuthors();
 DatabaseInitializer.ResetBookDatabase();
 DatabaseInitializer.ResetBookshops();
 
-UseCase01.WhoHasMoreBooks();
+UseCases.UC1_WhoHasMoreBooks();
