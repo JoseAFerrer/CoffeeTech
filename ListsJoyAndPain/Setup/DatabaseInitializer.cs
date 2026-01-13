@@ -94,7 +94,7 @@ public static class DatabaseInitializer
     private static void GenerateBaseSagas()
     {
         var books = Database.GetBooks();
-        var authors = Database.GetAuthors();
+        var authors = Database.GetAuthors().ToArray();
         
         var random = new Random();
         var baseSagas = new List<Saga>();
@@ -104,8 +104,8 @@ public static class DatabaseInitializer
             var bookAmount = Math.Min(random.NextOneToTen(), books.Count);
             var booksForSaga = books.Take(bookAmount).ToList();
 
-            var authorIndex = random.Next(0, authors.Count);
-            var authorIdForSaga = authors.ToArray()[authorIndex].Id;
+            var authorIndex = random.Next(0, authors.Length);
+            var authorIdForSaga = authors[authorIndex].Id;
 
             var sagaName = BookService.GetSagaName();
             
