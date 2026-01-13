@@ -5,7 +5,7 @@ namespace ListsJoyAndPain.Use_cases;
 
 public partial class UseCases
 {
-    public static void UC4_ExchangeCompleteCollections() // not working as expected
+    public static void UC4_ExchangeCompleteCollections()
     {
         Quick.InsertUseCaseTitle(4);
         var (bookshopA, bookshopB) = BookshopService.GetBookshops();
@@ -20,15 +20,29 @@ public partial class UseCases
             .ExceptBy(completeSagasInB.Select(s => s.Id), s => s.Id).ToArray();
         var completeInBNotCompleteInA = completeSagasInB
             .ExceptBy(completeSagasInA.Select(s => s.Id), s => s.Id).ToArray();
+
+        var incompleteToRemoveFromBAndAddToA = bookshopB.Sagas
+            .Where(x => completeInANotCompleteInB.Select(y => y.Id)
+                .Contains(x.Id)).ToArray();
+
+        var incompleteToRemoveFromAAndAddToB = bookshopA.Sagas
+            .Where(x => completeInBNotCompleteInA.Select(y => y.Id)
+                .Contains(x.Id)).ToArray();
         
         var updatedBooksInA = bookshopA.Sagas
             .Except(completeInANotCompleteInB)
-            .Concat(completeInBNotCompleteInA).ToList();
+            .Except(incompleteToRemoveFromAAndAddToB)
+            .Concat(completeInBNotCompleteInA)
+            .Concat(incompleteToRemoveFromBAndAddToA)
+            .ToList();
+        
         bookshopA.Sagas = updatedBooksInA;
         
         var updatedBooksInB = bookshopB.Sagas
             .Except(completeInBNotCompleteInA)
-            .Concat(completeInANotCompleteInB).ToList();
+            .Except(incompleteToRemoveFromBAndAddToA)
+            .Concat(completeInANotCompleteInB)
+            .Concat(incompleteToRemoveFromAAndAddToB).ToList();
         bookshopB.Sagas = updatedBooksInB;
         
         BookshopService.SaveBookshops(bookshopA, bookshopB);
