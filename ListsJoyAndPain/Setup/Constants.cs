@@ -2,9 +2,9 @@ namespace ListsJoyAndPain.Setup;
 
 public static class Constants
 {
-    public const string BookPath = "allBooks.json";
-    public const string SagaPath = "allSagas.json";
-    public const string AuthorPath = "authorPath.json";
-    public const string BookshopA = "bookshopA.json";
-    public const string BookshopB = "bookshopB.json";
+    public const string BookPath = "Data/allBooks.json";
+    public const string SagaPath = "Data/allSagas.json";
+    public const string AuthorPath = "Data/authors.json";
+    public const string BookshopA = "Data/bookshopA.json";
+    public const string BookshopB = "Data/bookshopB.json";
 }
