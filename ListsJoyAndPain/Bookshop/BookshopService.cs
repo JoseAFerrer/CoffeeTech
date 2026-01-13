@@ -10,4 +10,10 @@ public static class BookshopService
         var bookshopB = Database.GetBookshop(Constants.BookshopB);
         return (bookshopA, bookshopB);
     }
+    
+    public static void SaveBookshops(Models.Bookshop bookshopA, Models.Bookshop bookshopB)
+    {
+        Database.SaveBookshop(Constants.BookshopA, bookshopA);
+        Database.SaveBookshop(Constants.BookshopB, bookshopB);
+    }
 }
