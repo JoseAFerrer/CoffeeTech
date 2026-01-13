@@ -1,5 +1,6 @@
 using ListsJoyAndPain.Bookshop;
 using ListsJoyAndPain.Setup;
+using ListsJoyAndPain.Utilities;
 
 namespace ListsJoyAndPain.Use_cases;
 
@@ -7,6 +8,7 @@ public static partial class UseCases
 {
     public static void UC1_WhoHasMoreBooks()
     {
+        Quick.InsertUseCaseTitle(1);
         var (bookshopA, bookshopB) = BookshopService.GetBookshops();
 
         var bookCountA = bookshopA.Sagas.Sum(x => x.Books.Count);
